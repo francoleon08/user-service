@@ -33,8 +33,8 @@
 
 1. **Clonar el repositorio**:
     ```bash
-    git clone https://github.com/tuusuario/api-gestion-usuarios.git
-    cd api-gestion-usuarios
+    git clone https://github.com/francoleon08/user-service
+    cd user-service
     ```
 
 2. **Crear un entorno virtual**:

@@ -26,10 +26,9 @@ async def register_user(user: schemas.UserRegister, background_tasks: Background
 
 @auth_router.put("/api/verify", status_code=status.HTTP_200_OK)
 def verify_user_endpoint(verification_request: schemas.UserVerificationRequest):
-    success = services.verify_user(verification_request.user_name, verification_request.verification_code)
-    if success:
-        return {"message": "Verified successfully"}
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="User Verification Failed"
-        )
+    try:
+        success = services.verify_user(verification_request.user_name, verification_request.verification_code)
+        if success:
+            return {"message": "Verified successfully"}
+    except HTTPException as e:
+        raise e

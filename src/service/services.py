@@ -120,7 +120,13 @@ def generate_verification_code() -> str:
 
 
 def verify_user(user_name: str, verification_code: str):
-    user_verification = get_user_verification(get_user_by_username(user_name))
+    user = get_user_by_username(user_name)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    user_verification = get_user_verification(user)
     if user_verification is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Verification code not found"
@@ -134,7 +140,14 @@ def verify_user(user_name: str, verification_code: str):
             status_code=status.HTTP_400_BAD_REQUEST, detail="User is already verified"
         )
     user_verification.is_verified = True
-    session.commit()
+    try:
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
     return True
 
 

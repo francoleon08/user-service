@@ -21,7 +21,7 @@ async def register_user(user: schemas.UserRegister, background_tasks: Background
         if result:
             return result
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User already exists")
+        raise e
 
 
 @auth_router.put("/api/verify", status_code=status.HTTP_200_OK)

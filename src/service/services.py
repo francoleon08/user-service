@@ -9,6 +9,7 @@ from fastapi import Depends, HTTPException, status, BackgroundTasks
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt
 from passlib.context import CryptContext
+from pydantic import EmailStr, ValidationError
 
 from ..model import models
 from ..schemas import schemas
@@ -75,19 +76,25 @@ def create_access_token(data: dict, expires_delta: timedelta or None = None):
 
 
 async def register_user(user: schemas.UserRegister, background_tasks: BackgroundTasks):
-    user_register = register_user_in_database(user)
-    verification_code = register_verification_in_database(user_register)
+    try:
+        user_register = register_user_in_database(user)
+        verification_code = register_verification_in_database(user_register)
 
-    background_tasks.add_task(
-        utils_email.send_verification_email,
-        user_register.email,
-        user_register.username,
-        verification_code)
+        background_tasks.add_task(
+            utils_email.send_verification_email,
+            user_register.email,
+            user_register.username,
+            verification_code)
 
-    return schemas.UserInfo(
-        username=user_register.username,
-        email=user_register.email
-    )
+        return schemas.UserInfo(
+            username=user_register.username,
+            email=user_register.email
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Bad request"
+        )
 
 
 def register_user_in_database(user):
@@ -116,7 +123,7 @@ def register_verification_in_database(user_register):
 
 def generate_verification_code() -> str:
     characters = string.ascii_letters + string.digits
-    return ''.join(secrets.choice(characters) for _ in range(6))
+    return ''.join(secrets.choice(characters) for _ in range(6)).upper()
 
 
 def verify_user(user_name: str, verification_code: str):

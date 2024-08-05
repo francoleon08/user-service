@@ -1,0 +1,139 @@
+# Node.js / JavaScript
+node_modules/
+npm-debug.log
+yarn-error.log
+coverage/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+*.pyo
+*.pyd
+.Python
+env/
+env.bak/
+venv/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+__pycache__/
+local_settings.py
+
+# Django
+*.log
+*.pot
+*.pyc
+*~
+*.pyo
+*.pyd
+.Python
+env/
+env.bak/
+venv/
+venv.bak/
+__pycache__/
+local_settings.py
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.ipr
+*.iws
+*.project
+*.classpath
+*.settings/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# Flask
+instance/
+.webassets-cache
+
+# Golang
+bin/
+pkg/
+*.exe
+*.test
+*.out
+
+# Rust
+target/
+**/*.rs.bk
+
+# Docker
+*.swp
+
+# C/C++
+*.o
+*.obj
+*.so
+*.exe
+*.dll
+*.dylib
+*.out
+*.class
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Jenkins
+.jobs/
+*.build
+*.deploy
+.jenkins/
+
+# Common
+*.DS_Store
+*.log
+*.bak
+*.swp
+*.tmp
+*.out
+*.lock
+!.env
+.env.*
+.env
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# JetBrains
+/.idea
+*.sublime-workspace
+*.sublime-project
